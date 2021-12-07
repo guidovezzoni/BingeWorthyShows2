@@ -6,11 +6,15 @@ import com.guidovezzoni.bingeworthyshow2.data.dto.TvShowDto
 data class TvShowUiModel(
     val id: Long,
     val name: String,
+    val posterPath: String?,
+    val voteAverage: Double?,
 )
 
 fun TvShowDto.toTvShowUiModel() = TvShowUiModel(
     id = id,
     name = name,
+    posterPath = posterPath,
+    voteAverage = voteAverage,
 )
 
 fun PaginatedResponseDto<TvShowDto>.toPaginatedTvShowList(): PaginatedListUiModel<TvShowUiModel> =

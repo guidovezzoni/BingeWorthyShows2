@@ -1,4 +1,4 @@
-package com.guidovezzoni.bingeworthyshow2.utils
+package com.guidovezzoni.bingeworthyshow2.utils.networking
 
 import com.guidovezzoni.bingeworthyshow2.data.api.MdbApi
 import okhttp3.OkHttpClient

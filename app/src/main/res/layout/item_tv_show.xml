@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/item_tvshow_background"
+    android:padding="@dimen/item_tvshow_padding"
+    tools:context=".presentation.tvshowlist.TvShowListActivity">
+
+    <ImageView
+        android:id="@+id/show_image"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:contentDescription="@string/item_tv_show_poster_content_description"
+        app:layout_constraintDimensionRatio="h,2:3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@tools:sample/backgrounds/scenic[15]" />
+
+<!--    TODO remove linear layout-->
+
+    <LinearLayout
+        android:id="@+id/overlay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/item_tvshow_overlay_background"
+        android:orientation="vertical"
+        android:padding="@dimen/item_tvshow_overlay_padding"
+        app:layout_constraintBottom_toBottomOf="@+id/show_image"
+        app:layout_constraintStart_toStartOf="@+id/show_image">
+
+        <TextView
+            android:id="@+id/show_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="@color/item_tvshow_text_color"
+            tools:text="TV SHOW Title very long" />
+
+        <TextView
+            android:id="@+id/show_average_vote"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
+            android:maxLines="1"
+            android:textColor="@color/item_tvshow_text_color"
+            app:drawableLeftCompat="@android:drawable/btn_star_big_on"
+            app:drawableStartCompat="@android:drawable/btn_star_big_on"
+            tools:text="9.9" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
