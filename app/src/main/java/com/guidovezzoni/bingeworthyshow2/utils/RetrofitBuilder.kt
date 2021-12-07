@@ -1,6 +1,6 @@
 package com.guidovezzoni.bingeworthyshow2.utils
 
-import com.guidovezzoni.bingeworthyshow2.api.MdbApi
+import com.guidovezzoni.bingeworthyshow2.data.api.MdbApi
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit

@@ -1,6 +1,6 @@
-package com.guidovezzoni.bingeworthyshow2.data
+package com.guidovezzoni.bingeworthyshow2.data.repository
 
-import com.guidovezzoni.bingeworthyshow2.api.MdbApi
+import com.guidovezzoni.bingeworthyshow2.data.api.MdbApi
 
 /**
  * If we need to support local cache here is where we'll implement the required logic
