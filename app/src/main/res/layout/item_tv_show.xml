@@ -18,8 +18,6 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:srcCompat="@tools:sample/backgrounds/scenic[15]" />
 
-<!--    TODO remove linear layout-->
-
     <LinearLayout
         android:id="@+id/overlay"
         android:layout_width="match_parent"

@@ -5,21 +5,29 @@ import androidx.lifecycle.ViewModelStoreOwner
 import com.guidovezzoni.bingeworthyshow2.BuildConfig
 import com.guidovezzoni.bingeworthyshow2.data.api.MdbApi
 import com.guidovezzoni.bingeworthyshow2.data.datasource.MdbRestDatasource
+import com.guidovezzoni.bingeworthyshow2.data.repository.MdbRepository
 import com.guidovezzoni.bingeworthyshow2.data.repository.MdbRepositoryImpl
-import com.guidovezzoni.bingeworthyshow2.domain.GetTopRatedShowsUseCase
+import com.guidovezzoni.bingeworthyshow2.domain.usecase.GetConfigurationUseCase
+import com.guidovezzoni.bingeworthyshow2.domain.usecase.GetTopRatedShowsUseCase
 import com.guidovezzoni.bingeworthyshow2.presentation.tvshowlist.viewmodel.TvShowListViewModel
 import com.guidovezzoni.bingeworthyshow2.presentation.tvshowlist.viewmodel.ViewModelFactory
 import com.guidovezzoni.bingeworthyshow2.utils.networking.RetrofitBuilder
 
 object DiManager {
-    fun provideGetTopRatedShowsUseCase(api: MdbApi): GetTopRatedShowsUseCase {
-        val datasource = MdbRestDatasource(api, BuildConfig.THE_MOVIE_DB_KEY)
-        val repository = MdbRepositoryImpl(datasource)
-        return GetTopRatedShowsUseCase(repository)
+
+    private val mdbApi: MdbApi by lazy { RetrofitBuilder.MDB_API }
+
+    private val mdbRepository: MdbRepository by lazy {
+        val datasource = MdbRestDatasource(mdbApi, BuildConfig.THE_MOVIE_DB_KEY)
+        MdbRepositoryImpl(datasource)
     }
 
+    fun provideGetConfigurationUseCase() = GetConfigurationUseCase(mdbRepository)
+
+    fun provideGetTopRatedShowsUseCase() = GetTopRatedShowsUseCase(mdbRepository)
+
     fun provideViewModelProvider(owner: ViewModelStoreOwner): TvShowListViewModel {
-        val viewModelFactory = ViewModelFactory(RetrofitBuilder.MDB_API)
+        val viewModelFactory = ViewModelFactory(mdbApi)
         return ViewModelProvider(owner, viewModelFactory)[TvShowListViewModel::class.java]
     }
 }

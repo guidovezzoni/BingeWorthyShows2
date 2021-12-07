@@ -1,6 +1,11 @@
 package com.guidovezzoni.bingeworthyshow2.presentation.tvshowlist.adapter
 
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterInside
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.bumptech.glide.request.RequestOptions
+import com.guidovezzoni.bingeworthyshow2.R
 import com.guidovezzoni.bingeworthyshow2.databinding.ItemTvShowBinding
 import com.guidovezzoni.bingeworthyshow2.presentation.tvshowlist.model.TvShowUiModel
 import java.util.*
@@ -10,7 +15,13 @@ class TvShowViewHolder(private val binding: ItemTvShowBinding) :
 
     fun bind(tvShow: TvShowUiModel) {
         with(binding) {
-            // TODO load bitmap
+            showImage.setImageDrawable(null)
+            Glide.with(itemView)
+                .load(tvShow.posterUrl)
+                .apply(RequestOptions().transform(CenterInside(), RoundedCorners(CORNER_ROUNDING)))
+                .apply(RequestOptions.placeholderOf(R.mipmap.ic_launcher))
+                .into(showImage)
+
             showTitle.text = tvShow.name
             showAverageVote.text = getRating(tvShow)
         }
@@ -23,5 +34,6 @@ class TvShowViewHolder(private val binding: ItemTvShowBinding) :
     companion object {
         private const val AVERAGE_VOTE_FORMAT = "%.01f"
         private const val AVERAGE_VOTE_MISSING = "-"
+        private const val CORNER_ROUNDING = 40
     }
 }

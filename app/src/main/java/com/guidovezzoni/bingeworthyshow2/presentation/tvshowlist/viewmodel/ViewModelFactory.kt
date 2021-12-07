@@ -10,7 +10,10 @@ class ViewModelFactory(private val mdbApi: MdbApi) :
 
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(TvShowListViewModel::class.java)) {
-            return TvShowListViewModel(DiManager.provideGetTopRatedShowsUseCase(mdbApi)) as T
+            return TvShowListViewModel(
+                DiManager.provideGetConfigurationUseCase(),
+                DiManager.provideGetTopRatedShowsUseCase(),
+            ) as T
         }
         throw IllegalArgumentException("Unknown class name")
     }

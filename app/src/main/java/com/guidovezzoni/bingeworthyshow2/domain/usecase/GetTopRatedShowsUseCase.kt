@@ -1,4 +1,4 @@
-package com.guidovezzoni.bingeworthyshow2.domain
+package com.guidovezzoni.bingeworthyshow2.domain.usecase
 
 import com.guidovezzoni.bingeworthyshow2.data.repository.MdbRepository
 
