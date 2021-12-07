@@ -1,12 +1,12 @@
 package com.guidovezzoni.bingeworthyshow2.data.repository
 
-import com.guidovezzoni.bingeworthyshow2.data.api.MdbApi
+import com.guidovezzoni.bingeworthyshow2.data.datasource.MdbRestDatasource
 
 /**
  * If we need to support local cache here is where we'll implement the required logic
  */
-class MdbRepositoryImpl(private val api: MdbApi) : MdbRepository {
+class MdbRepositoryImpl(private val mdbRestDatasource: MdbRestDatasource) : MdbRepository {
 
-    override suspend fun getTopRatedShows() = api.getTopRatedShows()
+    override suspend fun getTopRatedShows() = mdbRestDatasource.getTopRatedShows()
 
 }

@@ -8,7 +8,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitBuilder {
 
-    private const val BASE_URL = "https://developers.themoviedb.org"
+    private const val BASE_URL = "https://api.themoviedb.org"
 
     private fun getRetrofit(): Retrofit {
         return Retrofit.Builder()

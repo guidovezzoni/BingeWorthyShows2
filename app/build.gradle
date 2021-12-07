@@ -3,6 +3,8 @@ plugins {
     id 'kotlin-android'
 }
 
+def theMovieDbKey = '"ab945c2099fd04f5da184470449e5979"'
+
 android {
     compileSdk 31
 
@@ -14,6 +16,8 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField "String", "THE_MOVIE_DB_KEY", theMovieDbKey
     }
 
     buildTypes {
@@ -41,6 +45,7 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.1.2'
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.4.0"
+    implementation "androidx.swiperefreshlayout:swiperefreshlayout:$ANDROIDX_SWIPE_REFRESH_LAYOUT"
 
     // Networking Tools
     implementation "com.squareup.retrofit2:retrofit:2.6.0"
