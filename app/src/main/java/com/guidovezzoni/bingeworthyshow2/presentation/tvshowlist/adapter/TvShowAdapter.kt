@@ -19,12 +19,8 @@ class TvShowAdapter : RecyclerView.Adapter<TvShowViewHolder>() {
 
     override fun getItemCount(): Int = internalList.size
 
-    fun clearItems() {
-        internalList.clear()
-        notifyDataSetChanged()
-    }
-
-    fun addItems(newItems: List<TvShowUiModel>) {
+    fun addItems(newItems: List<TvShowUiModel>, clearBeforeAdding: Boolean = false) {
+        if (clearBeforeAdding) internalList.clear()
         internalList.addAll(newItems)
         notifyDataSetChanged()
     }

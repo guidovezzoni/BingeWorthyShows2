@@ -6,6 +6,8 @@ import com.guidovezzoni.bingeworthyshow2.databinding.ActivityTvShowListBinding
 import com.guidovezzoni.bingeworthyshow2.domain.di.DiManager
 import com.guidovezzoni.bingeworthyshow2.presentation.tvshowlist.adapter.OnPaginatedScrollListener
 import com.guidovezzoni.bingeworthyshow2.presentation.tvshowlist.adapter.TvShowAdapter
+import com.guidovezzoni.bingeworthyshow2.presentation.tvshowlist.model.PaginatedListUiModel
+import com.guidovezzoni.bingeworthyshow2.presentation.tvshowlist.model.TvShowUiModel
 import com.guidovezzoni.bingeworthyshow2.presentation.tvshowlist.viewmodel.TvShowListViewModel
 import com.guidovezzoni.bingeworthyshow2.utils.extension.showToast
 
@@ -32,24 +34,35 @@ class TvShowListActivity : AppCompatActivity() {
         tvShowListViewModel.getTopRatedShows().observe(this) {
             it?.let { result ->
                 result.fold(
-                    { listUiModel -> adapter.addItems(listUiModel.items) },
+                    { listUiModel -> onSuccessfulRequest(listUiModel) },
                     { showToast("Error retrieving tv shows") }
                 )
             }
         }
     }
 
-    private fun setupSwipeToRefresh() {
-        // TODO complete
-        binding.swipeToRefresh.setOnRefreshListener { }
+    private fun onSuccessfulRequest(listUiModel: PaginatedListUiModel<TvShowUiModel>) {
+        adapter.addItems(
+            newItems = listUiModel.items,
+            clearBeforeAdding = listUiModel.page == FIRST_PAGE,
+        )
+        binding.swipeToRefresh.isRefreshing = false
     }
+
+    private fun setupSwipeToRefresh() =
+        binding.swipeToRefresh.setOnRefreshListener { tvShowListViewModel.refreshData() }
 
     private fun setupRecyclerView() {
         val recyclerView = binding.list
+
         adapter = TvShowAdapter()
         recyclerView.adapter = adapter
         recyclerView.addOnScrollListener(
             OnPaginatedScrollListener(recyclerView) { tvShowListViewModel.getMoreData() }
         )
+    }
+
+    companion object {
+        private const val FIRST_PAGE = 1L
     }
 }

@@ -15,29 +15,34 @@ class TvShowListViewModel(
 
     private var lastRequestedPage: Int = 0
 
-    private val loadTrigger = MutableLiveData(Unit)
+    private val loadTvShowTrigger = MutableLiveData(true)
 
-    fun refresh() {
-        loadTrigger.value = Unit
+    fun refreshData() {
+        loadTvShowTrigger.value = true
     }
 
     fun getMoreData() {
-        loadTrigger.value = Unit
+        loadTvShowTrigger.value = false
     }
 
     fun getTopRatedShows(): LiveData<Result<PaginatedListUiModel<TvShowUiModel>>> =
-        loadTrigger.switchMap { loadTopRatedShows() }
+        loadTvShowTrigger.switchMap { reloadList -> loadTopRatedShows(reloadList) }
 
-    private fun loadTopRatedShows(): LiveData<Result<PaginatedListUiModel<TvShowUiModel>>> =
+    private fun loadTopRatedShows(forceReload: Boolean = false):
+            LiveData<Result<PaginatedListUiModel<TvShowUiModel>>> =
         liveData(Dispatchers.IO) {
             try {
+                if (forceReload) lastRequestedPage = 0
+
                 val tmdbConfiguration = getConfigurationUseCase()
                 val valueToBeEmitted =
                     Result.success(
                         getTopRatedShowsUseCase(lastRequestedPage + 1)
                             .toPaginatedTvShowList(tmdbConfiguration)
                     )
-                // increment after successful completion of the network call
+                // increment only after successful completion of the above network call: in case of
+                // loading errors the user can retry to reload the missing page - by swiping up and
+                // down again
                 lastRequestedPage++
                 emit(valueToBeEmitted)
             } catch (exception: Exception) {
