@@ -2,7 +2,7 @@ package com.guidovezzoni.bingeworthyshow2.data.dto
 
 import com.google.gson.annotations.SerializedName
 
-data class Images(
+data class ImagesDto(
     @SerializedName("base_url") val baseUrl: String,
     @SerializedName("secure_base_url") val secureBaseUrl: String,
     @SerializedName("backdrop_sizes") val backdropSizes: List<String>,
