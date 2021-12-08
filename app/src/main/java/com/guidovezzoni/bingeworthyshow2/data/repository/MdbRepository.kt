@@ -8,6 +8,6 @@ interface MdbRepository {
 
     suspend fun getConfiguration(): ConfigurationResponseDto
 
-    suspend fun getTopRatedShows(): PaginatedResponseDto<TvShowDto>
+    suspend fun getTopRatedShows(page: Int): PaginatedResponseDto<TvShowDto>
 
 }

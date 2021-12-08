@@ -4,6 +4,6 @@ import com.guidovezzoni.bingeworthyshow2.data.repository.MdbRepository
 
 class GetTopRatedShowsUseCase(private val repository: MdbRepository) {
 
-    suspend operator fun invoke() = repository.getTopRatedShows()
+    suspend operator fun invoke(page: Int) = repository.getTopRatedShows(page)
 
 }

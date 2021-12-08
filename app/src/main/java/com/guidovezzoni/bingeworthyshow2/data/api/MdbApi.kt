@@ -14,6 +14,8 @@ interface MdbApi {
     // which has an identical structure
     //@GET("/3/tv/top-rated")
     @GET("/3/tv/popular")
-    suspend fun getTopRatedShows(@Query("api_key") apiKey: String):
-            PaginatedResponseDto<TvShowDto>
+    suspend fun getTopRatedShows(
+        @Query("api_key") apiKey: String,
+        @Query("page") page: Int,
+    ): PaginatedResponseDto<TvShowDto>
 }

@@ -6,5 +6,5 @@ class MdbRestDatasource(private val api: MdbApi, private val apiKey: String) : M
 
     override suspend fun getConfiguration() = api.getConfiguration(apiKey)
 
-    override suspend fun getTopRatedShows() = api.getTopRatedShows(apiKey)
+    override suspend fun getTopRatedShows(page: Int) = api.getTopRatedShows(apiKey, page)
 }

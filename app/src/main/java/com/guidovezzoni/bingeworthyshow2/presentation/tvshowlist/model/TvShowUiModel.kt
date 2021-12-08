@@ -9,7 +9,7 @@ data class TvShowUiModel(
     val id: Long,
     val name: String,
     val posterUrl: String,
-    val voteAverage: Double,
+    val voteAverage: Double?,
 )
 
 fun TvShowDto.toTvShowUiModel(config: ConfigurationDomainModel) = TvShowUiModel(

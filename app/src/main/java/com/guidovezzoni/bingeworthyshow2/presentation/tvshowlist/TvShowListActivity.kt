@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.guidovezzoni.bingeworthyshow2.databinding.ActivityTvShowListBinding
 import com.guidovezzoni.bingeworthyshow2.domain.di.DiManager
+import com.guidovezzoni.bingeworthyshow2.presentation.tvshowlist.adapter.OnPaginatedScrollListener
 import com.guidovezzoni.bingeworthyshow2.presentation.tvshowlist.adapter.TvShowAdapter
 import com.guidovezzoni.bingeworthyshow2.presentation.tvshowlist.viewmodel.TvShowListViewModel
 import com.guidovezzoni.bingeworthyshow2.utils.extension.showToast
@@ -23,7 +24,7 @@ class TvShowListActivity : AppCompatActivity() {
 
         setupViewModel()
         setupSwipeToRefresh()
-        setupAdapter()
+        setupRecyclerView()
     }
 
     private fun setupViewModel() {
@@ -43,8 +44,12 @@ class TvShowListActivity : AppCompatActivity() {
         binding.swipeToRefresh.setOnRefreshListener { }
     }
 
-    private fun setupAdapter() {
+    private fun setupRecyclerView() {
+        val recyclerView = binding.list
         adapter = TvShowAdapter()
-        binding.list.adapter = adapter
+        recyclerView.adapter = adapter
+        recyclerView.addOnScrollListener(
+            OnPaginatedScrollListener(recyclerView) { tvShowListViewModel.getMoreData() }
+        )
     }
 }

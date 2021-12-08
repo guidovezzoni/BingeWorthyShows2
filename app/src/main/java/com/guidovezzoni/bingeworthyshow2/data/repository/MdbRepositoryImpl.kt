@@ -25,6 +25,6 @@ class MdbRepositoryImpl(private val mdbRestDatasource: MdbRestDatasource) : MdbR
         }
     }
 
-    override suspend fun getTopRatedShows() = mdbRestDatasource.getTopRatedShows()
+    override suspend fun getTopRatedShows(page: Int) = mdbRestDatasource.getTopRatedShows(page)
 
 }

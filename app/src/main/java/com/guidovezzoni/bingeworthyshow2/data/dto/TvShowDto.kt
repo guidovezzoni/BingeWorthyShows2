@@ -7,7 +7,7 @@ data class TvShowDto(
     @SerializedName("popularity") val popularity: Double,
     @SerializedName("id") val id: Long,
     @SerializedName("backdrop_path") val backdropPath: String,
-    @SerializedName("vote_average") val voteAverage: Double,
+    @SerializedName("vote_average") val voteAverage: Double?,
     @SerializedName("overview") val overview: String,
     @SerializedName("first_air_date") val firstAirDate: String,
     @SerializedName("origin_country") val originCountry: List<String>,
