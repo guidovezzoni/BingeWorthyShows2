@@ -3,7 +3,7 @@ package com.guidovezzoni.bingeworthyshow2.presentation.tvshowlist.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.guidovezzoni.bingeworthyshow2.data.api.MdbApi
-import com.guidovezzoni.bingeworthyshow2.domain.di.DiManager
+import com.guidovezzoni.bingeworthyshow2.domain.di.DiProvider
 
 class ViewModelFactory(private val mdbApi: MdbApi) :
     ViewModelProvider.Factory {
@@ -11,8 +11,8 @@ class ViewModelFactory(private val mdbApi: MdbApi) :
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(TvShowListViewModel::class.java)) {
             return TvShowListViewModel(
-                DiManager.provideGetConfigurationUseCase(),
-                DiManager.provideGetTopRatedShowsUseCase(),
+                DiProvider.provideGetConfigurationUseCase(),
+                DiProvider.provideGetTopRatedShowsUseCase(),
             ) as T
         }
         throw IllegalArgumentException("Unknown class name")

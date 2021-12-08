@@ -36,6 +36,13 @@ android {
     buildFeatures {
         viewBinding true
     }
+    testOptions {
+        execution 'ANDROIDX_TEST_ORCHESTRATOR'
+
+        unitTests.all {
+            useJUnitPlatform()
+        }
+    }
 }
 
 dependencies {
@@ -58,6 +65,10 @@ dependencies {
 
     // test
     testImplementation "junit:junit:$JUNIT_VERSION"
+    testImplementation "org.junit.jupiter:junit-jupiter-engine:$JUNIT_JUPITER_VERSION"
+    testImplementation "org.mockito.kotlin:mockito-kotlin:$MOCKITO_VERSION"
+    testImplementation "io.mockk:mockk:$MOCKK_VERSION"
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$KOTLIN_COROUTINE_TEST_VERSION"
     androidTestImplementation "androidx.test.ext:junit:$ANDROIDX_TEST_VERSION"
     androidTestImplementation "androidx.test.espresso:espresso-core:$ANDROIDX_ESPRESSO_VERSION"
 }

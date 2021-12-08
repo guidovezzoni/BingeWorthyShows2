@@ -3,7 +3,7 @@ package com.guidovezzoni.bingeworthyshow2.presentation.tvshowlist
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.guidovezzoni.bingeworthyshow2.databinding.ActivityTvShowListBinding
-import com.guidovezzoni.bingeworthyshow2.domain.di.DiManager
+import com.guidovezzoni.bingeworthyshow2.domain.di.DiProvider
 import com.guidovezzoni.bingeworthyshow2.presentation.tvshowlist.adapter.OnPaginatedScrollListener
 import com.guidovezzoni.bingeworthyshow2.presentation.tvshowlist.adapter.TvShowAdapter
 import com.guidovezzoni.bingeworthyshow2.presentation.tvshowlist.model.PaginatedListUiModel
@@ -30,7 +30,7 @@ class TvShowListActivity : AppCompatActivity() {
     }
 
     private fun setupViewModel() {
-        tvShowListViewModel = DiManager.provideViewModelProvider(this)
+        tvShowListViewModel = DiProvider.provideViewModelProvider(this)
         tvShowListViewModel.getTopRatedShows().observe(this) {
             it?.let { result ->
                 result.fold(

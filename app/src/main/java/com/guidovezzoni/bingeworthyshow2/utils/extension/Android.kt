@@ -21,17 +21,23 @@ fun Context.getProviderAuthority(providerName: String): String {
 fun Activity.hasPermission(permission: String): Boolean =
     ContextCompat.checkSelfPermission(baseContext, permission) == PackageManager.PERMISSION_GRANTED
 
-fun Activity.hasPermissions(permissions: Array<String>): Boolean = permissions.all { hasPermission(it) }
+fun Activity.hasPermissions(permissions: Array<String>): Boolean =
+    permissions.all { hasPermission(it) }
 
 
 fun Fragment.hasPermission(permission: String): Boolean =
-    ContextCompat.checkSelfPermission(requireContext(), permission) == PackageManager.PERMISSION_GRANTED
+    ContextCompat.checkSelfPermission(
+        requireContext(),
+        permission
+    ) == PackageManager.PERMISSION_GRANTED
 
-fun Fragment.hasPermissions(permissions: Array<String>): Boolean = permissions.all { hasPermission(it) }
+fun Fragment.hasPermissions(permissions: Array<String>): Boolean =
+    permissions.all { hasPermission(it) }
 
 
 fun Activity.showToast(msg: String) = Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
-fun Fragment.showToast(msg: String) = Toast.makeText(requireContext(), msg, Toast.LENGTH_SHORT).show()
+fun Fragment.showToast(msg: String) =
+    Toast.makeText(requireContext(), msg, Toast.LENGTH_SHORT).show()
 
 
 fun Window.setSystemUiColor(

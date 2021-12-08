@@ -1,7 +1,7 @@
 package com.guidovezzoni.bingeworthyshow2.domain.model
 
-private val SIZE_FAVOURITE = "w780"
-private val SIZE_ORIGINAL = "original"
+private const val SIZE_FAVOURITE = "w780"
+private const val SIZE_ORIGINAL = "original"
 
 /**
  * Returns the appropriate poster size. The favourite is preferred if present, otherwise the highest

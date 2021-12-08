@@ -6,11 +6,13 @@ import com.guidovezzoni.bingeworthyshow2.domain.usecase.GetTopRatedShowsUseCase
 import com.guidovezzoni.bingeworthyshow2.presentation.tvshowlist.model.PaginatedListUiModel
 import com.guidovezzoni.bingeworthyshow2.presentation.tvshowlist.model.TvShowUiModel
 import com.guidovezzoni.bingeworthyshow2.presentation.tvshowlist.model.toPaginatedTvShowList
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 
 class TvShowListViewModel(
     private val getConfigurationUseCase: GetConfigurationUseCase,
     private val getTopRatedShowsUseCase: GetTopRatedShowsUseCase,
+    private val dispatcher: CoroutineDispatcher = Dispatchers.IO,
 ) : ViewModel() {
 
     private var lastRequestedPage: Int = 0
@@ -30,7 +32,7 @@ class TvShowListViewModel(
 
     private fun loadTopRatedShows(forceReload: Boolean = false):
             LiveData<Result<PaginatedListUiModel<TvShowUiModel>>> =
-        liveData(Dispatchers.IO) {
+        liveData(dispatcher) {
             try {
                 if (forceReload) lastRequestedPage = 0
 
