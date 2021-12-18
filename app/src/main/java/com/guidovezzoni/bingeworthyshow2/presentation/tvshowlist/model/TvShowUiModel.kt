@@ -1,8 +1,8 @@
 package com.guidovezzoni.bingeworthyshow2.presentation.tvshowlist.model
 
-import com.guidovezzoni.bingeworthyshow2.data.dto.PaginatedResponseDto
-import com.guidovezzoni.bingeworthyshow2.data.dto.TvShowDto
 import com.guidovezzoni.bingeworthyshow2.domain.model.ConfigurationDomainModel
+import com.guidovezzoni.bingeworthyshow2.domain.model.PaginatedListDomainModel
+import com.guidovezzoni.bingeworthyshow2.domain.model.TvShowDomainModel
 import com.guidovezzoni.bingeworthyshow2.domain.model.getBestPosterSize
 
 data class TvShowUiModel(
@@ -12,17 +12,18 @@ data class TvShowUiModel(
     val voteAverage: Double?,
 )
 
-fun TvShowDto.toTvShowUiModel(config: ConfigurationDomainModel) = TvShowUiModel(
+fun TvShowDomainModel.toTvShowUiModel(config: ConfigurationDomainModel) = TvShowUiModel(
     id = id,
     name = name,
     posterUrl = config.imageBaseUrl + config.getBestPosterSize() + posterPath,
     voteAverage = voteAverage,
 )
 
-fun PaginatedResponseDto<TvShowDto>.toPaginatedTvShowList(config: ConfigurationDomainModel) =
-    PaginatedListUiModel(
-        items = results.map { it.toTvShowUiModel(config) },
-        page = page,
-        totalItems = totalResults,
-        totalPages = totalPages,
-    )
+fun PaginatedListDomainModel<TvShowDomainModel>.toPaginatedTvShowList(
+    config: ConfigurationDomainModel,
+) = PaginatedListUiModel(
+    items = items.map { it.toTvShowUiModel(config) },
+    page = page,
+    totalItems = totalItems,
+    totalPages = totalPages,
+)

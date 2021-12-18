@@ -1,9 +1,9 @@
-package com.guidovezzoni.bingeworthyshow2.presentation.tvshowlist.model
+package com.guidovezzoni.bingeworthyshow2.domain.model
 
 /**
  * This has been kept general as it's likely to be used in similar responses
  */
-data class PaginatedListUiModel<T>(
+data class PaginatedListDomainModel<T>(
     val items: List<T>,
     val page: Long,
     val totalItems: Long,
