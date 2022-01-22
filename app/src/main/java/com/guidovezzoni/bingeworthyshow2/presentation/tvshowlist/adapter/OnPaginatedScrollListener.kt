@@ -38,6 +38,10 @@ open class OnPaginatedScrollListener(
         }
     }
 
+    fun resetLoading() {
+        loading = false
+    }
+
     companion object {
         private const val VISIBLE_THRESHOLD = 10
     }
