@@ -1,6 +1,7 @@
 package com.guidovezzoni.bingeworthyshow2.presentation.tvshowlist
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.guidovezzoni.bingeworthyshow2.databinding.ActivityTvShowListBinding
 import com.guidovezzoni.bingeworthyshow2.domain.di.DiProvider
@@ -10,12 +11,18 @@ import com.guidovezzoni.bingeworthyshow2.presentation.tvshowlist.model.Paginated
 import com.guidovezzoni.bingeworthyshow2.presentation.tvshowlist.model.TvShowUiModel
 import com.guidovezzoni.bingeworthyshow2.presentation.tvshowlist.viewmodel.TvShowListViewModel
 import com.guidovezzoni.bingeworthyshow2.utils.extension.showToast
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.disposables.CompositeDisposable
+import io.reactivex.rxjava3.kotlin.subscribeBy
+import io.reactivex.rxjava3.schedulers.Schedulers
 
 class TvShowListActivity : AppCompatActivity() {
     private lateinit var tvShowListViewModel: TvShowListViewModel
     private lateinit var binding: ActivityTvShowListBinding
 
     private lateinit var adapter: TvShowAdapter
+
+    private var compositeDisposable = CompositeDisposable()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,14 +38,19 @@ class TvShowListActivity : AppCompatActivity() {
 
     private fun setupViewModel() {
         tvShowListViewModel = DiProvider.provideViewModelProvider(this)
-        tvShowListViewModel.getTopRatedShows().observe(this) {
-            it?.let { result ->
-                result.fold(
-                    { listUiModel -> onSuccessfulRequest(listUiModel) },
-                    { showToast("Error retrieving tv shows") }
+
+        compositeDisposable.add(
+            tvShowListViewModel.getTopRatedShows()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeBy(
+                    onError = {
+                        Log.e("error", "Error retrieving tv shows", it)
+                        showToast("Error retrieving tv shows")
+                    },
+                    onNext = { listUiModel -> onSuccessfulRequest(listUiModel) }
                 )
-            }
-        }
+        )
     }
 
     private fun onSuccessfulRequest(listUiModel: PaginatedListUiModel<TvShowUiModel>) {
@@ -60,6 +72,11 @@ class TvShowListActivity : AppCompatActivity() {
         recyclerView.addOnScrollListener(
             OnPaginatedScrollListener(recyclerView) { tvShowListViewModel.getMoreData() }
         )
+    }
+
+    override fun onStop() {
+        compositeDisposable.clear()
+        super.onStop()
     }
 
     companion object {
