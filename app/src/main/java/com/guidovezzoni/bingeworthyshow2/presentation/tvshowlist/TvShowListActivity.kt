@@ -44,7 +44,7 @@ class TvShowListActivity : AppCompatActivity() {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeBy(
                     onError = {
-                        Log.e("error", "Error retrieving tv shows", it)
+                        Log.e(TAG, "Error retrieving tv shows", it)
                         showToast("Error retrieving tv shows")
                     },
                     onNext = { listUiModel -> onSuccessfulRequest(listUiModel) }
@@ -85,5 +85,6 @@ class TvShowListActivity : AppCompatActivity() {
 
     companion object {
         private const val FIRST_PAGE = 1L
+        private const val TAG = "TvShowListActivity"
     }
 }

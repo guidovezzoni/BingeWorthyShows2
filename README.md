@@ -7,7 +7,7 @@ From the architectural point of view we have 3 levels:
 * Data level based on repository pattern - which can be easily extended to support multiple levels
   of cache
 * Domain with the UseCase
-* Presentation based on MVVM and observables: AndroidX ViewModel and LiveData
+* Presentation based on MVVM and observables: AndroidX ViewModel and RxJava3
 
 Code is fully in Kotlin, auto-formatted from the IDE, and most of lint/detekt warnings have been
 addressed during the development
@@ -29,7 +29,7 @@ mocks, etc.
    different gradle sub-project to improve build time, decoupling, and modularisation
 1. Data level based on repository: more complex caching could be easily handled via specific logic
    and additional datasources implementation
-1. Presentation based on MVVM and observables: AndroidX ViewModel and LiveData
+1. Presentation based on MVVM and observables: AndroidX ViewModel and RxJava3
 1. Dependency Injection: a DI manager for each level handles instantiation, it could easily be
    replaced by Dagger in more complex projects
 
@@ -41,3 +41,9 @@ mocks, etc.
    trying to be self-explanatory
 1. Unit test - some classes/functions have been unit tested as sample - junit, mocks, coroutines,
    etc
+
+## Variants
+
+An RxJava3 version can be found in this branch: [link]
+
+If you wish to compare the difference between Coroutines+LiveData and RxJava, you can check them here: [link]
