@@ -8,6 +8,7 @@ List of features and bug that I would like to implement/fix
 * Detail view
 * Handle errors from API as Result<>
 * Hanlde loader - with status???
+* Convert to Mockito?   
 
 ## Bugs
 
