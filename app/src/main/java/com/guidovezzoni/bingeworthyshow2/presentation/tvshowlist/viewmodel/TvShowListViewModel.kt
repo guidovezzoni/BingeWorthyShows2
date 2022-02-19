@@ -1,5 +1,6 @@
 package com.guidovezzoni.bingeworthyshow2.presentation.tvshowlist.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.*
 import com.guidovezzoni.bingeworthyshow2.domain.usecase.GetConfigurationUseCase
 import com.guidovezzoni.bingeworthyshow2.domain.usecase.GetTopRatedShowsUseCase
@@ -39,7 +40,7 @@ class TvShowListViewModel(
                 val tmdbConfiguration = getConfigurationUseCase()
                 val valueToBeEmitted =
                     Result.success(
-                        getTopRatedShowsUseCase(lastRequestedPage + 1)
+                        getTopRatedShowsUseCase(page = lastRequestedPage + 1)
                             .toPaginatedTvShowList(tmdbConfiguration)
                     )
                 // increment only after successful completion of the above network call: in case of
@@ -48,7 +49,12 @@ class TvShowListViewModel(
                 lastRequestedPage++
                 emit(valueToBeEmitted)
             } catch (exception: Exception) {
+                Log.e(TAG, "Error on loading shows", exception)
                 emit(Result.failure(exception = exception))
             }
         }
+
+    companion object {
+        private const val TAG = "TvShowListViewModel"
+    }
 }
