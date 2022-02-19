@@ -54,7 +54,6 @@ dependencies {
     implementation "androidx.appcompat:appcompat:$ANDROIDX_APPCOMPAT_VERSION"
     implementation "androidx.constraintlayout:constraintlayout:$ANDROIDX_CONSTRAINT_LAYOUT_VERSION"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$ANDROIDX_LIFECYCLE_VERSION"
-    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$ANDROIDX_LIFECYCLE_VERSION"
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:$ANDROIDX_SWIPE_REFRESH_LAYOUT"
 
     // Networking Tools
@@ -74,7 +73,6 @@ dependencies {
     testImplementation "org.junit.jupiter:junit-jupiter-engine:$JUNIT_JUPITER_VERSION"
     testImplementation "org.mockito.kotlin:mockito-kotlin:$MOCKITO_VERSION"
     testImplementation "io.mockk:mockk:$MOCKK_VERSION"
-    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$KOTLIN_COROUTINE_TEST_VERSION"
     androidTestImplementation "androidx.test.ext:junit:$ANDROIDX_TEST_VERSION"
     androidTestImplementation "androidx.test.espresso:espresso-core:$ANDROIDX_ESPRESSO_VERSION"
 }
