@@ -3,7 +3,7 @@ package com.guidovezzoni.bingeworthyshow2.data.dto
 import com.google.gson.annotations.SerializedName
 
 data class TvShowDto(
-    @SerializedName("poster_path") val posterPath: String,
+    @SerializedName("poster_path") val posterPath: String?,
     @SerializedName("popularity") val popularity: Double,
     @SerializedName("id") val id: Long,
     @SerializedName("backdrop_path") val backdropPath: String,

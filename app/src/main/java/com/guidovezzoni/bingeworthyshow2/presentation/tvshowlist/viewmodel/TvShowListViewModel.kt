@@ -1,6 +1,5 @@
 package com.guidovezzoni.bingeworthyshow2.presentation.tvshowlist.viewmodel
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.guidovezzoni.bingeworthyshow2.domain.usecase.GetConfigurationUseCase
 import com.guidovezzoni.bingeworthyshow2.domain.usecase.GetTopRatedShowsUseCase
@@ -8,55 +7,35 @@ import com.guidovezzoni.bingeworthyshow2.presentation.tvshowlist.model.Paginated
 import com.guidovezzoni.bingeworthyshow2.presentation.tvshowlist.model.TvShowUiModel
 import com.guidovezzoni.bingeworthyshow2.presentation.tvshowlist.model.toPaginatedTvShowList
 import io.reactivex.rxjava3.core.Observable
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
+import io.reactivex.rxjava3.processors.PublishProcessor
 
 class TvShowListViewModel(
     private val getConfigurationUseCase: GetConfigurationUseCase,
     private val getTopRatedShowsUseCase: GetTopRatedShowsUseCase,
-    private val dispatcher: CoroutineDispatcher = Dispatchers.IO,
 ) : ViewModel() {
 
     private var lastRequestedPage: Int = 0
 
-    private val loadTvShowTrigger = MutableLiveData(true)
+    private val trigger: PublishProcessor<Boolean> = PublishProcessor.create()
 
-    fun refreshData() {
-        loadTvShowTrigger.value = true
+    fun refreshData() = trigger.onNext(true)
+
+    fun getMoreData() = trigger.onNext(false)
+
+    fun getTopRatedShows2(): Observable<PaginatedListUiModel<TvShowUiModel>> {
+        return trigger
+            .toObservable()
+            .flatMap { getShowsPage(it) }
     }
 
-    fun getMoreData() {
-        loadTvShowTrigger.value = false
+    private fun getShowsPage(forceReload: Boolean): Observable<PaginatedListUiModel<TvShowUiModel>> {
+        if (forceReload) lastRequestedPage = 0
+
+        return getTopRatedShowsUseCase(page = lastRequestedPage + 1)
+            .flatMap { list ->
+                getConfigurationUseCase()
+                    .map { configuration -> list.toPaginatedTvShowList(configuration) }
+            }
+            .doOnNext { lastRequestedPage++ }
     }
-
-    fun getTopRatedShows(): Observable<PaginatedListUiModel<TvShowUiModel>> = getTopRatedShowsUseCase(1)
-        .flatMap { list ->
-            getConfigurationUseCase()
-                .map { configuration -> list.toPaginatedTvShowList(configuration) }
-        }
-
-//    fun getTopRatedShows(): LiveData<Result<PaginatedListUiModel<TvShowUiModel>>> =
-//        loadTvShowTrigger.switchMap { reloadList -> loadTopRatedShows(reloadList) }
-//
-//    private fun loadTopRatedShows(forceReload: Boolean = false):
-//            LiveData<Result<PaginatedListUiModel<TvShowUiModel>>> =
-//        liveData(dispatcher) {
-//            try {
-//                if (forceReload) lastRequestedPage = 0
-//
-//                val tmdbConfiguration = getConfigurationUseCase()
-//                val valueToBeEmitted =
-//                    Result.success(
-//                        getTopRatedShowsUseCase(lastRequestedPage + 1)
-//                            //.toPaginatedTvShowList(tmdbConfiguration)
-//                    )
-//                // increment only after successful completion of the above network call: in case of
-//                // loading errors the user can retry to reload the missing page - by swiping up and
-//                // down again
-//                lastRequestedPage++
-//                emit(valueToBeEmitted)
-//            } catch (exception: Exception) {
-//                emit(Result.failure(exception = exception))
-//            }
-//        }
 }

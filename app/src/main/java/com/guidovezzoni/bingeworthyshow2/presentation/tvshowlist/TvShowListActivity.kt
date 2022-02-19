@@ -24,7 +24,6 @@ class TvShowListActivity : AppCompatActivity() {
 
     private var compositeDisposable = CompositeDisposable()
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -40,7 +39,7 @@ class TvShowListActivity : AppCompatActivity() {
         tvShowListViewModel = DiProvider.provideViewModelProvider(this)
 
         compositeDisposable.add(
-            tvShowListViewModel.getTopRatedShows()
+            tvShowListViewModel.getTopRatedShows2()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeBy(
@@ -72,6 +71,11 @@ class TvShowListActivity : AppCompatActivity() {
         recyclerView.addOnScrollListener(
             OnPaginatedScrollListener(recyclerView) { tvShowListViewModel.getMoreData() }
         )
+    }
+
+    override fun onStart() {
+        super.onStart()
+        tvShowListViewModel.refreshData()
     }
 
     override fun onStop() {

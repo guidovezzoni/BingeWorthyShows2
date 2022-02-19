@@ -13,7 +13,7 @@ data class TvShowDomainModel(
 fun TvShowDto.toTvShowDomainModel() = TvShowDomainModel(
     id = id,
     name = name,
-    posterPath = posterPath,
+    posterPath = posterPath.orEmpty(),
     voteAverage = voteAverage,
 )
 
