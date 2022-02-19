@@ -64,9 +64,8 @@ dependencies {
     implementation "com.github.bumptech.glide:glide:$GLIDE_VERSION"
 
     // test
-    testImplementation "junit:junit:$JUNIT_VERSION"
-    testImplementation "org.junit.jupiter:junit-jupiter-engine:$JUNIT_JUPITER_VERSION"
-    testImplementation "org.mockito.kotlin:mockito-kotlin:$MOCKITO_VERSION"
+    testImplementation "androidx.arch.core:core-testing:$ANDROIDX_ARCH_CORE_TESTING_VERSION"
+    testImplementation "org.junit.jupiter:junit-jupiter-engine:$JUNIT_5_VERSION"
     testImplementation "io.mockk:mockk:$MOCKK_VERSION"
     testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$KOTLIN_COROUTINE_TEST_VERSION"
     androidTestImplementation "androidx.test.ext:junit:$ANDROIDX_TEST_VERSION"
