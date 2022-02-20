@@ -5,8 +5,9 @@ List of features and bug that I would like to implement/fix
 ## Features
 
 * Dagger Hilt
-* Detail view
 * Handle errors from API as Result<>
+* Test Flow
+* Detail view
 * Hanlde loader - with status???
 * Convert to Mockito?
 
