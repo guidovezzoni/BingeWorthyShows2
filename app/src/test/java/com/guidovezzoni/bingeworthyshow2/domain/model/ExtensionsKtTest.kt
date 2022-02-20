@@ -1,8 +1,8 @@
 package com.guidovezzoni.bingeworthyshow2.domain.model
 
-import com.guidovezzoni.bingeworthyshow2.domain.model.ConfigurationDomainModelMother.ANY_CONFIGURATION_DOMAIN_MODEL
-import com.guidovezzoni.bingeworthyshow2.domain.model.ConfigurationDomainModelMother.LOWER_RES_CONFIGURATION_DOMAIN_MODEL
-import com.guidovezzoni.bingeworthyshow2.domain.model.ConfigurationDomainModelMother.ORIGINAL_CONFIGURATION_DOMAIN_MODEL
+import com.guidovezzoni.bingeworthyshow2.domain.model.DomainModelsMother.ANY_CONFIGURATION_DOMAIN_MODEL
+import com.guidovezzoni.bingeworthyshow2.domain.model.DomainModelsMother.LOWER_RES_CONFIGURATION_DOMAIN_MODEL
+import com.guidovezzoni.bingeworthyshow2.domain.model.DomainModelsMother.ORIGINAL_CONFIGURATION_DOMAIN_MODEL
 import org.junit.Assert.assertEquals
 import org.junit.jupiter.api.Test
 
