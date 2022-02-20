@@ -2,7 +2,6 @@ package com.guidovezzoni.bingeworthyshow2.domain.di
 
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStoreOwner
-import com.guidovezzoni.bingeworthyshow2.data.di.DiProvider.mdbApi
 import com.guidovezzoni.bingeworthyshow2.data.di.DiProvider.mdbRepository
 import com.guidovezzoni.bingeworthyshow2.domain.usecase.GetConfigurationUseCase
 import com.guidovezzoni.bingeworthyshow2.domain.usecase.GetTopRatedShowsUseCase
@@ -15,7 +14,7 @@ object DiProvider {
     fun provideGetTopRatedShowsUseCase() = GetTopRatedShowsUseCase(mdbRepository)
 
     fun provideViewModelProvider(owner: ViewModelStoreOwner): TvShowListViewModel {
-        val viewModelFactory = ViewModelFactory(mdbApi)
+        val viewModelFactory = ViewModelFactory()
         return ViewModelProvider(owner, viewModelFactory)[TvShowListViewModel::class.java]
     }
 }
