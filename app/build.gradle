@@ -69,7 +69,6 @@ dependencies {
     implementation "io.reactivex.rxjava3:rxkotlin:3.0.1"
 
     // test
-    testImplementation "androidx.arch.core:core-testing:$ANDROIDX_ARCH_CORE_TESTING_VERSION"
     testImplementation "org.junit.jupiter:junit-jupiter-engine:$JUNIT_5_VERSION"
     testImplementation "io.mockk:mockk:$MOCKK_VERSION"
     androidTestImplementation "androidx.test.ext:junit:$ANDROIDX_TEST_VERSION"

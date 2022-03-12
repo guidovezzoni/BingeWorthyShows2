@@ -39,7 +39,7 @@ class TvShowListActivity : AppCompatActivity() {
         tvShowListViewModel = DiProvider.provideViewModelProvider(this)
 
         compositeDisposable.add(
-            tvShowListViewModel.getTopRatedShows2()
+            tvShowListViewModel.getTopRatedShows()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeBy(

@@ -17,8 +17,8 @@ object DomainModelsMother {
         posterSizes = listOf("original")
     )
 
-    val TV_SHOW_DOMAIN_MODEL_1 = TvShowDomainModel(0, "Lucifer", "34tbjhb", 10.0)
-    val TV_SHOW_DOMAIN_MODEL_2 = TvShowDomainModel(1, "Lupin", "ete54fds", 10.0)
+    val TV_SHOW_DOMAIN_MODEL_1 = TvShowDomainModel(7675, "Lucifer", "34tbjhb", 9.7)
+    val TV_SHOW_DOMAIN_MODEL_2 = TvShowDomainModel(75745, "Lupin", "ete54fds", 7.4)
 
     val A_TV_SHOW_PAGINATED_LIST = PaginatedListDomainModel(
         items = listOf(TV_SHOW_DOMAIN_MODEL_1, TV_SHOW_DOMAIN_MODEL_2),

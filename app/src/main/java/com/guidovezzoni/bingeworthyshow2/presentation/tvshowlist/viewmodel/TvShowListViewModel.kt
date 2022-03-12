@@ -22,7 +22,7 @@ class TvShowListViewModel(
 
     fun getMoreData() = trigger.onNext(false)
 
-    fun getTopRatedShows2(): Observable<PaginatedListUiModel<TvShowUiModel>> {
+    fun getTopRatedShows(): Observable<PaginatedListUiModel<TvShowUiModel>> {
         return trigger
             .toObservable()
             .flatMap { getShowsPage(it) }
