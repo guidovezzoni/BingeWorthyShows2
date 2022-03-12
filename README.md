@@ -41,6 +41,6 @@ Most classes have been unit tested as example of the different situation: JUnit 
 
 ## Variants
 
-An RxJava3 version can be found in this branch: [link]
+A Coroutines+LiveData version can be found in this branch: [https://github.com/guidovezzoni/BingeWorthyShows2]
 
 If you wish to compare the difference between Coroutines+LiveData and RxJava, you can check them here: [link]
