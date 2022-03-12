@@ -38,3 +38,9 @@ Most classes have been unit tested as example of the different situation: JUnit 
 1. Code was commented where more info seemed to be useful, generally speaking the code is written trying to be
    self-explanatory
 1. Unit test - most classes have been unit tested - using JUnit 5, Mockk, Test utilities for coroutines and livedata
+
+## Variants
+
+An RxJava3 version can be found in this branch: [https://github.com/guidovezzoni/BingeWorthyShows2/tree/main-rxjava3]
+
+If you wish to compare the difference between Coroutines+LiveData and RxJava, you can check them here: [link]
