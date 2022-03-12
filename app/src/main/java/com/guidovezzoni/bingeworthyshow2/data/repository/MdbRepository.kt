@@ -3,11 +3,12 @@ package com.guidovezzoni.bingeworthyshow2.data.repository
 import com.guidovezzoni.bingeworthyshow2.data.dto.ConfigurationResponseDto
 import com.guidovezzoni.bingeworthyshow2.data.dto.PaginatedResponseDto
 import com.guidovezzoni.bingeworthyshow2.data.dto.TvShowDto
+import io.reactivex.rxjava3.core.Observable
 
 interface MdbRepository {
 
-    suspend fun getConfiguration(): ConfigurationResponseDto
+    fun getConfiguration(): Observable<ConfigurationResponseDto>
 
-    suspend fun getTopRatedShows(page: Int): PaginatedResponseDto<TvShowDto>
+    fun getTopRatedShows(page: Int): Observable<PaginatedResponseDto<TvShowDto>>
 
 }

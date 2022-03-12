@@ -2,6 +2,7 @@ package com.guidovezzoni.bingeworthyshow2.data.repository
 
 import com.guidovezzoni.bingeworthyshow2.data.datasource.MdbRestDatasource
 import com.guidovezzoni.bingeworthyshow2.data.dto.ConfigurationResponseDto
+import io.reactivex.rxjava3.core.Observable
 
 /**
  * If we need to support local cache here is where we'll implement the required logic
@@ -14,17 +15,16 @@ class MdbRepositoryImpl(private val mdbRestDatasource: MdbRestDatasource) : MdbR
      * Configuration is cached in memory. TMDB's recommendations are to refresh the cache every few
      * days, so an improvement would be to implement a more persistent cache, f.i. in SharedPrefs
      */
-    override suspend fun getConfiguration(): ConfigurationResponseDto {
+    override fun getConfiguration(): Observable<ConfigurationResponseDto> {
         val currentConfig = inMemoryCache
+
         return if (currentConfig != null) {
-            currentConfig
+            Observable.just(currentConfig)
         } else {
-            val newConfiguration = mdbRestDatasource.getConfiguration()
-            inMemoryCache = newConfiguration
-            newConfiguration
+            mdbRestDatasource.getConfiguration()
+                .doOnNext { config -> inMemoryCache = config }
         }
     }
 
-    override suspend fun getTopRatedShows(page: Int) = mdbRestDatasource.getTopRatedShows(page)
-
+    override fun getTopRatedShows(page: Int) = mdbRestDatasource.getTopRatedShows(page)
 }

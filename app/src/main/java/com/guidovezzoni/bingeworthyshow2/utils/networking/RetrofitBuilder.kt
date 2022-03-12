@@ -4,6 +4,7 @@ import com.guidovezzoni.bingeworthyshow2.data.api.MdbApi
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
+import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitBuilder {
@@ -15,6 +16,7 @@ object RetrofitBuilder {
             .baseUrl(BASE_URL)
             .client(getOkHttpClient())
             .addConverterFactory(GsonConverterFactory.create())
+            .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
             .build()
     }
 

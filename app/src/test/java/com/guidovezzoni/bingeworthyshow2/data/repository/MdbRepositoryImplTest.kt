@@ -1,14 +1,18 @@
 package com.guidovezzoni.bingeworthyshow2.data.repository
 
 import com.guidovezzoni.bingeworthyshow2.data.datasource.MdbRestDatasource
+import com.guidovezzoni.bingeworthyshow2.data.dto.ConfigurationResponseDto
+import com.guidovezzoni.bingeworthyshow2.data.dto.DtoModelsMother
+import com.guidovezzoni.bingeworthyshow2.data.dto.DtoModelsMother.ANY_CONFIGURATION_DTO
+import com.guidovezzoni.bingeworthyshow2.data.dto.DtoModelsMother.ANY_PAGINATED_RESPONSE_DTO
+import com.guidovezzoni.bingeworthyshow2.data.dto.PaginatedResponseDto
+import com.guidovezzoni.bingeworthyshow2.data.dto.TvShowDto
 import io.mockk.MockKAnnotations
-import io.mockk.coVerify
+import io.mockk.every
 import io.mockk.impl.annotations.RelaxedMockK
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.test.resetMain
-import kotlinx.coroutines.test.runBlockingTest
-import kotlinx.coroutines.test.setMain
-import org.junit.jupiter.api.AfterEach
+import io.mockk.verify
+import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.observers.TestObserver
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
@@ -22,37 +26,46 @@ class MdbRepositoryImplTest {
     @BeforeEach
     fun setUp() {
         MockKAnnotations.init(this, relaxUnitFun = true)
-        Dispatchers.setMain(Dispatchers.Unconfined)
 
         sut = MdbRepositoryImpl(mdbRestDatasource)
     }
 
-    @AfterEach
-    fun tearDown() = Dispatchers.resetMain()
+    @Test
+    fun `getConfiguration invokes api method the first time`() {
+        val testObserver = TestObserver<ConfigurationResponseDto>()
+        every { mdbRestDatasource.getConfiguration() }
+            .returns(Observable.just(DtoModelsMother.ANY_CONFIGURATION_DTO))
+
+        sut.getConfiguration()
+            .subscribe(testObserver)
+
+        testObserver.assertResult(ANY_CONFIGURATION_DTO)
+        verify { mdbRestDatasource.getConfiguration() }
+    }
 
     @Test
-    fun `getTopRatedShows invokes api method`() =
-        runBlockingTest {
-            sut.getTopRatedShows(6)
+    fun `multiple values of getConfiguration invokes api method only once`() {
+        val testObserver = TestObserver<ConfigurationResponseDto>()
+        every { mdbRestDatasource.getConfiguration() }
+            .returns(Observable.just(ANY_CONFIGURATION_DTO, ANY_CONFIGURATION_DTO))
 
-            coVerify { mdbRestDatasource.getTopRatedShows(6) }
-        }
+        sut.getConfiguration()
+            .subscribe(testObserver)
 
-    @Test
-    fun `getConfiguration invokes api method the first time`() =
-        runBlockingTest {
-            sut.getConfiguration()
-
-            coVerify { mdbRestDatasource.getConfiguration() }
-        }
+        testObserver.assertResult(ANY_CONFIGURATION_DTO, ANY_CONFIGURATION_DTO)
+        verify(exactly = 1) { mdbRestDatasource.getConfiguration() }
+    }
 
     @Test
-    fun `getConfiguration invokes api method only once`() =
-        runBlockingTest {
-            sut.getConfiguration()
-            sut.getConfiguration()
-            sut.getConfiguration()
+    fun `getTopRatedShows invokes api method`() {
+        val testObserver = TestObserver<PaginatedResponseDto<TvShowDto>>()
+        every { mdbRestDatasource.getTopRatedShows(6) }
+            .returns(Observable.just(ANY_PAGINATED_RESPONSE_DTO))
 
-            coVerify(exactly = 1) { mdbRestDatasource.getConfiguration() }
-        }
+        sut.getTopRatedShows(6)
+            .subscribe(testObserver)
+
+        testObserver.assertResult(ANY_PAGINATED_RESPONSE_DTO)
+        verify { mdbRestDatasource.getTopRatedShows(6) }
+    }
 }
