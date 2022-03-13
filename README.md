@@ -11,8 +11,7 @@ From the architectural point of view we have 3 levels:
 Code is fully in Kotlin, auto-formatted from the IDE, and most of lint/detekt warnings have been addressed during the
 development
 
-Most classes have been unit tested as example of the different situation: JUnit 5, Mockk, Test utilities for coroutines
-and RxJava
+Most classes have been unit tested as example of the different situation: JUnit 5, Mockk, Test utilities for RxJava.
 
 # Highlights about the  implementation
 
@@ -38,7 +37,7 @@ and RxJava
 1. Static code analysis (Lint/Detekt) issues kept to a minimum
 1. Code was commented where more info seemed to be useful, generally speaking the code is written trying to be
    self-explanatory
-1. Unit test - most classes have been unit tested - using JUnit 5, Mockk, Test utilities for coroutines and RxJava
+1. Unit test - most classes have been unit tested - using JUnit 5, Mockk, Test utilities for RxJava.
 
 ## Variants
 
