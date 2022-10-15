@@ -43,6 +43,7 @@ android {
             useJUnitPlatform()
         }
     }
+    namespace 'com.guidovezzoni.bingeworthyshow2'
 }
 
 dependencies {
