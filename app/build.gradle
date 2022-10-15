@@ -35,6 +35,10 @@ android {
     }
     buildFeatures {
         viewBinding true
+        compose true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion '1.1.1'
     }
     testOptions {
         execution 'ANDROIDX_TEST_ORCHESTRATOR'
@@ -58,6 +62,13 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$ANDROIDX_LIFECYCLE_VERSION"
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:$ANDROIDX_SWIPE_REFRESH_LAYOUT"
 
+    implementation "androidx.activity:activity-compose:$ANDROIDX_COMPOSE_ACTIVITY"
+    implementation "androidx.compose.material:material:$ANDROIDX_COMPOSE_VERSION"
+    implementation "androidx.compose.animation:animation:$ANDROIDX_COMPOSE_VERSION"
+    implementation "androidx.compose.ui:ui-tooling:$ANDROIDX_COMPOSE_VERSION"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-compose:$ANDROIDX_COMPOSE_VIEWMODEL"
+    implementation "com.google.android.material:compose-theme-adapter:$ANDROIDX_COMPOSE_MDC"
+
     // Networking Tools
     implementation "com.squareup.retrofit2:retrofit:$RETROFIT_VERSION"
     implementation "com.squareup.retrofit2:converter-gson:$RETROFIT_VERSION"
@@ -65,10 +76,12 @@ dependencies {
     implementation "com.github.bumptech.glide:glide:$GLIDE_VERSION"
 
     // test
-    testImplementation "androidx.arch.core:core-testing:$ANDROIDX_ARCH_CORE_TESTING_VERSION"
     testImplementation "org.junit.jupiter:junit-jupiter-engine:$JUNIT_5_VERSION"
     testImplementation "io.mockk:mockk:$MOCKK_VERSION"
-    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$KOTLIN_COROUTINE_TEST_VERSION"
     androidTestImplementation "androidx.test.ext:junit:$ANDROIDX_TEST_VERSION"
     androidTestImplementation "androidx.test.espresso:espresso-core:$ANDROIDX_ESPRESSO_VERSION"
+
+    testImplementation "androidx.arch.core:core-testing:$ANDROIDX_ARCH_CORE_TESTING_VERSION"
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$KOTLIN_COROUTINE_TEST_VERSION"
+    androidTestImplementation "androidx.compose.ui:ui-test-junit4:$ANDROIDX_COMPOSE_VERSION"
 }
