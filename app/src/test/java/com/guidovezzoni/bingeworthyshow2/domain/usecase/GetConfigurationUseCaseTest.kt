@@ -1,9 +1,9 @@
 package com.guidovezzoni.bingeworthyshow2.domain.usecase
 
 import com.guidovezzoni.bingeworthyshow2.data.dto.DtoModelsMother.ANY_CONFIGURATION_DTO
-import com.guidovezzoni.bingeworthyshow2.data.repository.MdbRepository
 import com.guidovezzoni.bingeworthyshow2.domain.model.ConfigurationDomainModel
 import com.guidovezzoni.bingeworthyshow2.domain.model.DomainModelsMother.ANY_CONFIGURATION_DOMAIN_MODEL
+import com.guidovezzoni.bingeworthyshow2.domain.repository.MdbRepository
 import io.mockk.MockKAnnotations
 import io.mockk.every
 import io.mockk.impl.annotations.RelaxedMockK

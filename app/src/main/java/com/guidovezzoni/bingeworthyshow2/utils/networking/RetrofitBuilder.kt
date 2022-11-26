@@ -1,6 +1,5 @@
 package com.guidovezzoni.bingeworthyshow2.utils.networking
 
-import com.guidovezzoni.bingeworthyshow2.data.api.MdbApi
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -8,12 +7,9 @@ import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitBuilder {
-
-    private const val BASE_URL = "https://api.themoviedb.org"
-
-    private fun getRetrofit(): Retrofit {
+    fun getRetrofit(baseUrl: String): Retrofit {
         return Retrofit.Builder()
-            .baseUrl(BASE_URL)
+            .baseUrl(baseUrl)
             .client(getOkHttpClient())
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
@@ -25,9 +21,4 @@ object RetrofitBuilder {
         interceptor.level = HttpLoggingInterceptor.Level.BODY
         return OkHttpClient.Builder().addInterceptor(interceptor).build()
     }
-
-    private fun getMdbApi(): MdbApi =
-        getRetrofit().create(MdbApi::class.java)
-
-    val MDB_API: MdbApi = getMdbApi()
 }

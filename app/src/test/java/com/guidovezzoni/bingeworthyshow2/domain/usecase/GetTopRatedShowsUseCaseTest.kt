@@ -1,10 +1,10 @@
 package com.guidovezzoni.bingeworthyshow2.domain.usecase
 
 import com.guidovezzoni.bingeworthyshow2.data.dto.DtoModelsMother.ANY_PAGINATED_RESPONSE_DTO
-import com.guidovezzoni.bingeworthyshow2.data.repository.MdbRepository
 import com.guidovezzoni.bingeworthyshow2.domain.model.DomainModelsMother.A_TV_SHOW_PAGINATED_LIST
 import com.guidovezzoni.bingeworthyshow2.domain.model.PaginatedListDomainModel
 import com.guidovezzoni.bingeworthyshow2.domain.model.TvShowDomainModel
+import com.guidovezzoni.bingeworthyshow2.domain.repository.MdbRepository
 import io.mockk.MockKAnnotations
 import io.mockk.every
 import io.mockk.impl.annotations.RelaxedMockK

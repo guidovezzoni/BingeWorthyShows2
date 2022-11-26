@@ -4,9 +4,9 @@ import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.guidovezzoni.bingeworthyshow2.databinding.ActivityTvShowListBinding
-import com.guidovezzoni.bingeworthyshow2.domain.di.DiProvider
 import com.guidovezzoni.bingeworthyshow2.presentation.tvshowlist.adapter.OnPaginatedScrollListener
 import com.guidovezzoni.bingeworthyshow2.presentation.tvshowlist.adapter.TvShowAdapter
+import com.guidovezzoni.bingeworthyshow2.presentation.tvshowlist.di.DiPresentationProvider.provideViewModelProvider
 import com.guidovezzoni.bingeworthyshow2.presentation.tvshowlist.model.PaginatedListUiModel
 import com.guidovezzoni.bingeworthyshow2.presentation.tvshowlist.model.TvShowUiModel
 import com.guidovezzoni.bingeworthyshow2.presentation.tvshowlist.viewmodel.TvShowListViewModel
@@ -36,7 +36,7 @@ class TvShowListActivity : AppCompatActivity() {
     }
 
     private fun setupViewModel() {
-        tvShowListViewModel = DiProvider.provideViewModelProvider(this)
+        tvShowListViewModel = provideViewModelProvider(this)
 
         compositeDisposable.add(
             tvShowListViewModel.getTopRatedShows()

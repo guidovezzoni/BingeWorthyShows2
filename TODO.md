@@ -2,8 +2,9 @@
 
 List of features and bug that I would like to implement/fix
 
-## Features
+## Architecture
 
+## Features
 * Dagger Hilt
 * Handle errors from API as Result<>
 * Test Flow
@@ -12,7 +13,6 @@ List of features and bug that I would like to implement/fix
 * Convert to Mockito?
 
 ## Bugs
-
 * Longer cache for images
 * Restore running after an error - f.i. `poster_path=null`
 * Placeholder for images
