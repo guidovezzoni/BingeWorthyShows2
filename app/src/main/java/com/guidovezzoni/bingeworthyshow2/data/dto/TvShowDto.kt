@@ -1,6 +1,8 @@
 package com.guidovezzoni.bingeworthyshow2.data.dto
 
 import com.google.gson.annotations.SerializedName
+import com.guidovezzoni.bingeworthyshow2.domain.model.PaginatedListDomainModel
+import com.guidovezzoni.bingeworthyshow2.domain.model.TvShowDomainModel
 
 data class TvShowDto(
     @SerializedName("poster_path") val posterPath: String?,
@@ -17,3 +19,18 @@ data class TvShowDto(
     @SerializedName("name") val name: String,
     @SerializedName("original_name") val originalName: String,
 )
+
+fun TvShowDto.toTvShowDomainModel() = TvShowDomainModel(
+    id = id,
+    name = name,
+    posterPath = posterPath.orEmpty(),
+    voteAverage = voteAverage,
+)
+
+fun PaginatedResponseDto<TvShowDto>.toPaginatedTvShowList() =
+    PaginatedListDomainModel(
+        items = results.map { it.toTvShowDomainModel() },
+        page = page,
+        totalItems = totalResults,
+        totalPages = totalPages,
+    )
