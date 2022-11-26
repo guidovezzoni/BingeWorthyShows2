@@ -24,7 +24,7 @@ Most classes have been unit tested as example of the different situation: JUnit 
 
 ## Architectural level
 
-1. Clean approach: each different level (data, domain, and presentation) follow a clear dependency graph and could be easily separated in a different gradle
+1. Clean approach: each different level (data, domain, and presentation) follows a clear dependency graph and could be easily separated in a different gradle
    sub-project to improve build time, decoupling, and modularisation.
    1. Domain level has no other dependencies - dependency inversion for data - Repository Interface
    2. Domain level has no Android dependencies for fast unit testing
