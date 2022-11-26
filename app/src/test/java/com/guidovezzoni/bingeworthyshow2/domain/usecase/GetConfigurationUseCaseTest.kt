@@ -1,6 +1,6 @@
 package com.guidovezzoni.bingeworthyshow2.domain.usecase
 
-import com.guidovezzoni.bingeworthyshow2.data.repository.MdbRepository
+import com.guidovezzoni.bingeworthyshow2.domain.repository.MdbRepository
 import io.mockk.MockKAnnotations
 import io.mockk.coVerify
 import io.mockk.impl.annotations.RelaxedMockK

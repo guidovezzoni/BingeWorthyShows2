@@ -14,6 +14,7 @@ import junit.framework.Assert.assertEquals
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runBlockingTest
+import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.test.setMain
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
@@ -47,7 +48,7 @@ class TvShowListViewModelTest {
     fun tearDown() = Dispatchers.resetMain()
 
     @Test
-    fun `when load initial page gets correct result`() = runBlockingTest {
+    fun `when load initial page gets correct result`() = runTest {
         //Arrange
         coEvery { getTopRatedShowsUseCase(1) }.returns(A_TV_SHOW_PAGINATED_LIST)
         coEvery { getConfigurationUseCase() }.returns(ANY_CONFIGURATION_DOMAIN_MODEL)
