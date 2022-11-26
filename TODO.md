@@ -2,6 +2,9 @@
 
 List of features and bug that I would like to implement/fix
 
+## Architecture
+* Retrofit builder API independent
+
 ## Features
 
 * Dagger Hilt

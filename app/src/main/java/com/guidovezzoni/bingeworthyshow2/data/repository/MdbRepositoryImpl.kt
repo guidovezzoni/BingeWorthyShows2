@@ -2,6 +2,7 @@ package com.guidovezzoni.bingeworthyshow2.data.repository
 
 import com.guidovezzoni.bingeworthyshow2.data.datasource.MdbRestDatasource
 import com.guidovezzoni.bingeworthyshow2.data.dto.ConfigurationResponseDto
+import com.guidovezzoni.bingeworthyshow2.domain.repository.MdbRepository
 import io.reactivex.rxjava3.core.Observable
 
 /**

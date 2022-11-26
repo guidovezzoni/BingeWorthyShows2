@@ -1,4 +1,4 @@
-package com.guidovezzoni.bingeworthyshow2.data.repository
+package com.guidovezzoni.bingeworthyshow2.domain.repository
 
 import com.guidovezzoni.bingeworthyshow2.data.dto.ConfigurationResponseDto
 import com.guidovezzoni.bingeworthyshow2.data.dto.PaginatedResponseDto

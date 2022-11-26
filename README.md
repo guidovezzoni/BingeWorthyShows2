@@ -24,12 +24,14 @@ Most classes have been unit tested as example of the different situation: JUnit 
 
 ## Architectural level
 
-1. Clean approach: each different level (data, domain, and presentation) could be easily separated in a different gradle
+1. Clean approach: each different level (data, domain, and presentation) follow a clear dependency graph and could be easily separated in a different gradle
    sub-project to improve build time, decoupling, and modularisation.
-1. Data level based on repository: more complex caching could be easily handled via specific logic and additional
+   1. Domain level has no other dependencies - dependency inversion for data - Repository Interface
+   2. Domain level has no Android dependencies for fast unit testing
+2. Data level based on repository: more complex caching could be easily handled via specific logic and additional
    datasources implementation.
-1. Presentation based on MVVM and observables: AndroidX ViewModel and LiveData.
-1. Dependency Injection: a DI manager for each level handles instantiation, it could easily be replaced by Dagger in
+3. Presentation based on MVVM and observables: AndroidX ViewModel and LiveData.
+4. Dependency Injection: a DI manager for each level handles instantiation, it could easily be replaced by Dagger in
    more complex projects.
 
 ## Code Level
