@@ -4,19 +4,16 @@ import com.guidovezzoni.bingeworthyshow2.domain.model.DomainModelsMother.ANY_CON
 import com.guidovezzoni.bingeworthyshow2.domain.model.DomainModelsMother.A_TV_SHOW_PAGINATED_LIST
 import com.guidovezzoni.bingeworthyshow2.domain.usecase.GetConfigurationUseCase
 import com.guidovezzoni.bingeworthyshow2.domain.usecase.GetTopRatedShowsUseCase
+import com.guidovezzoni.bingeworthyshow2.presentation.tvshowlist.model.PaginatedListUiModel
+import com.guidovezzoni.bingeworthyshow2.presentation.tvshowlist.model.TvShowUiModel
 import com.guidovezzoni.bingeworthyshow2.presentation.tvshowlist.model.UiModelsMother.TV_SHOW_UI_MODEL_PAGINATED_LIST
 import com.guidovezzoni.bingeworthyshow2.testutils.InstantExecutorExtension
-import com.guidovezzoni.bingeworthyshow2.testutils.getOrAwaitValue
 import io.mockk.MockKAnnotations
-import io.mockk.coEvery
+import io.mockk.every
 import io.mockk.impl.annotations.RelaxedMockK
-import junit.framework.Assert.assertEquals
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.test.resetMain
-import kotlinx.coroutines.test.runBlockingTest
-import kotlinx.coroutines.test.runTest
-import kotlinx.coroutines.test.setMain
-import org.junit.jupiter.api.AfterEach
+import io.mockk.verify
+import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.observers.TestObserver
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -35,29 +32,35 @@ class TvShowListViewModelTest {
     @BeforeEach
     fun setUp() {
         MockKAnnotations.init(this, relaxUnitFun = true)
-        Dispatchers.setMain(Dispatchers.Unconfined)
 
         sut = TvShowListViewModel(
             getConfigurationUseCase,
-            getTopRatedShowsUseCase,
-            Dispatchers.Unconfined
+            getTopRatedShowsUseCase
         )
     }
 
-    @AfterEach
-    fun tearDown() = Dispatchers.resetMain()
-
     @Test
-    fun `when load initial page gets correct result`() = runTest {
+    fun `when load initial page gets correct result`() {
         //Arrange
-        coEvery { getTopRatedShowsUseCase(1) }.returns(A_TV_SHOW_PAGINATED_LIST)
-        coEvery { getConfigurationUseCase() }.returns(ANY_CONFIGURATION_DOMAIN_MODEL)
+        val testObserver = TestObserver<PaginatedListUiModel<TvShowUiModel>>()
+        every { getConfigurationUseCase() }
+            .returns(Observable.just(ANY_CONFIGURATION_DOMAIN_MODEL))
+        every { getTopRatedShowsUseCase(1) }
+            .returns(Observable.just(A_TV_SHOW_PAGINATED_LIST))
 
         //Act
-        val orAwaitValue = sut.getTopRatedShows().getOrAwaitValue()
+        sut.getTopRatedShows()
+            .subscribe(testObserver)
+
+        sut.refreshData()
 
         //Assert
-        assertEquals(true, orAwaitValue.isSuccess)
-        assertEquals(TV_SHOW_UI_MODEL_PAGINATED_LIST, orAwaitValue.getOrNull())
+        testObserver
+            .assertValue(TV_SHOW_UI_MODEL_PAGINATED_LIST)
+            .assertNoErrors()
+            .assertNotComplete()
+
+        verify { getConfigurationUseCase() }
+        verify { getTopRatedShowsUseCase(1) }
     }
 }

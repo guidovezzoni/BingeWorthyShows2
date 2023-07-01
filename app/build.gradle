@@ -55,20 +55,23 @@ dependencies {
     implementation "androidx.appcompat:appcompat:$ANDROIDX_APPCOMPAT_VERSION"
     implementation "androidx.constraintlayout:constraintlayout:$ANDROIDX_CONSTRAINT_LAYOUT_VERSION"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$ANDROIDX_LIFECYCLE_VERSION"
-    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$ANDROIDX_LIFECYCLE_VERSION"
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:$ANDROIDX_SWIPE_REFRESH_LAYOUT"
 
     // Networking Tools
     implementation "com.squareup.retrofit2:retrofit:$RETROFIT_VERSION"
     implementation "com.squareup.retrofit2:converter-gson:$RETROFIT_VERSION"
+    implementation "com.squareup.retrofit2:adapter-rxjava3:$RETROFIT_VERSION"
     implementation "com.squareup.okhttp3:logging-interceptor:$OK_HTTP_LOGGING_INTERCEPTOR"
     implementation "com.github.bumptech.glide:glide:$GLIDE_VERSION"
 
+    // RxJava
+    implementation "io.reactivex.rxjava3:rxjava:3.1.3"
+    implementation "io.reactivex.rxjava3:rxandroid:3.0.0"
+    implementation "io.reactivex.rxjava3:rxkotlin:3.0.1"
+
     // test
-    testImplementation "androidx.arch.core:core-testing:$ANDROIDX_ARCH_CORE_TESTING_VERSION"
     testImplementation "org.junit.jupiter:junit-jupiter-engine:$JUNIT_5_VERSION"
     testImplementation "io.mockk:mockk:$MOCKK_VERSION"
-    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$KOTLIN_COROUTINE_TEST_VERSION"
     androidTestImplementation "androidx.test.ext:junit:$ANDROIDX_TEST_VERSION"
     androidTestImplementation "androidx.test.espresso:espresso-core:$ANDROIDX_ESPRESSO_VERSION"
 }
