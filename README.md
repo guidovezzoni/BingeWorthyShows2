@@ -28,10 +28,10 @@ Most classes have been unit tested as example of the different situation: JUnit 
    sub-project to improve build time, decoupling, and modularisation.
    1. Domain level has no other dependencies - dependency inversion for data - Repository Interface
    2. Domain level has no Android dependencies for fast unit testing
-2. Data level based on repository: more complex caching could be easily handled via specific logic and additional
+1. Data level based on repository: more complex caching could be easily handled via specific logic and additional
    datasources implementation.
-3. Presentation based on MVVM and observables: AndroidX ViewModel and LiveData.
-4. Dependency Injection: a DI manager for each level handles instantiation, it could easily be replaced by Dagger in
+1. Presentation based on MVVM and observables: AndroidX ViewModel and LiveData.
+1. Dependency Injection: a DI manager for each level handles instantiation, it could easily be replaced by Dagger in
    more complex projects.
 
 ## Code Level
@@ -46,5 +46,5 @@ Most classes have been unit tested as example of the different situation: JUnit 
 
 A Coroutines+LiveData version can be found in [this branch](https://github.com/guidovezzoni/BingeWorthyShows2)
 
-A PR comparing the Coroutines+LiveData solution and the RxJava one can be
-found [here](https://github.com/guidovezzoni/BingeWorthyShows2/pull/4/files)
+A PR comparing the Coroutines+LiveData solution and the RxJava3 solution can be
+found [here](https://github.com/guidovezzoni/BingeWorthyShows2/pull/17/files)
