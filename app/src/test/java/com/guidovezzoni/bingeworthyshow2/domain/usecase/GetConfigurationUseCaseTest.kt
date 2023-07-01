@@ -1,15 +1,15 @@
 package com.guidovezzoni.bingeworthyshow2.domain.usecase
 
+import com.guidovezzoni.bingeworthyshow2.data.dto.DtoModelsMother.ANY_CONFIGURATION_DTO
+import com.guidovezzoni.bingeworthyshow2.domain.model.ConfigurationDomainModel
+import com.guidovezzoni.bingeworthyshow2.domain.model.DomainModelsMother.ANY_CONFIGURATION_DOMAIN_MODEL
 import com.guidovezzoni.bingeworthyshow2.domain.repository.MdbRepository
 import io.mockk.MockKAnnotations
-import io.mockk.coVerify
+import io.mockk.every
 import io.mockk.impl.annotations.RelaxedMockK
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.test.resetMain
-import kotlinx.coroutines.test.runBlockingTest
-import kotlinx.coroutines.test.setMain
-
-import org.junit.jupiter.api.AfterEach
+import io.mockk.verify
+import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.observers.TestObserver
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
@@ -23,19 +23,19 @@ class GetConfigurationUseCaseTest {
     @BeforeEach
     fun setUp() {
         MockKAnnotations.init(this, relaxUnitFun = true)
-        Dispatchers.setMain(Dispatchers.Unconfined)
 
         sut = GetConfigurationUseCase(mdbRepository)
     }
 
-    @AfterEach
-    fun tearDown() = Dispatchers.resetMain()
-
     @Test
-    fun `getTopRatedShows invokes api method`() =
-        runBlockingTest {
-            sut()
+    fun `getTopRatedShows invokes api method`() {
+        val testObserver = TestObserver<ConfigurationDomainModel>()
+        every { mdbRepository.getConfiguration() }
+            .returns(Observable.just(ANY_CONFIGURATION_DTO))
 
-            coVerify { mdbRepository.getConfiguration() }
-        }
+        sut().subscribe(testObserver)
+
+        testObserver.assertResult(ANY_CONFIGURATION_DOMAIN_MODEL)
+        verify { mdbRepository.getConfiguration() }
+    }
 }
